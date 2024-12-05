@@ -25,6 +25,8 @@ public class AssessmentData {
 
     private String companyName;
 
+    private String bankCode;
+
     private String bankBranchCode;
 
     private String formMNumber;

@@ -29,10 +29,14 @@ public class AssPayReq implements FlowBean {
 
             String incomingJson = exchange.getBody().toString();
 
-            headers.put("INCOMING_BODY", incomingJson);
+            String regJson  = incomingJson.replaceAll("\\r?\\n", "");
+
+            log.info("Remove line breaks" + regJson);
+
+            headers.put("INCOMING_BODY", regJson);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(incomingJson);
+            JsonNode rootNode = objectMapper.readTree(regJson);
 
             // Extract fields from the incoming JSON
             String sadYear = rootNode.path("sadYear").asText();

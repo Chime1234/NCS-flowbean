@@ -23,7 +23,7 @@ public class UpdateAssmntPay implements FlowBean {
 
         headers.put("PMT_RESP", "Operation completed successfully, SGD was paid");
         headers.put("NCS_PAID", Integer.valueOf(1));
-        headers.put("ASSESSMENT_STATUS", "CONFIRMED");
+        headers.put("ASSESSMENT_STATUS", "APPROVED");
 
         return exchange;
     }

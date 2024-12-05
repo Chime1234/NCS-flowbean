@@ -10,6 +10,9 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -306,5 +309,14 @@ public class Util {
         System.out.println(LongValue(null));
     }
 
-
+    public static long getDateTimeNowDiff(LocalDateTime from) {
+        LocalDateTime now = LocalDateTime.now();
+        Duration duration = Duration.between(from, now);
+        return Math.abs(duration.toMillis());
+    }
+    public static String fromtoDate(String dateTime) {
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        return localDateTime.format(formatter);
+    }
 }

@@ -1,8 +1,11 @@
 package com.unionsystems.ncscmb;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.unionsystems.ncscmb.model.AssessmentData;
 import com.unionsystems.oibflow.core.FlowBean;
 import com.unionsystems.oibflow.core.FlowExchange;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 
 import javax.net.ssl.*;
 import java.io.BufferedReader;
@@ -83,7 +86,12 @@ public class  PrepareAssmntByRef implements FlowBean {
                 }
                 String responseBody = response.toString();
                 log.info("Response body: " + responseBody);
-                exchange.setBody(responseBody);
+                JSONObject jsonObject = new JSONObject(responseBody);
+                ObjectMapper mapper = new ObjectMapper();
+                JSONObject dataObject = jsonObject.getJSONArray("data").getJSONObject(0);
+
+                AssessmentData assessmentData = mapper.readValue(dataObject.toString(), AssessmentData.class);
+                exchange.setBody(assessmentData);
             }
             return exchange;
         } catch (Exception e) {
